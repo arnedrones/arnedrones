@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="Arne Drones — cinematic aerial video & fotografie in België.">
+  <title>Arne Drones — Cinematic Aerial Content</title>
+  <style>
+    :root{
+      --bg:#08090b;
+      --panel:#111318;
+      --text:#f4f4f0;
+      --muted:#a7a9ad;
+      --line:rgba(255,255,255,.12);
+      --accent:#fff;
+    }
+    *{box-sizing:border-box}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0;
+      background:var(--bg);
+      color:var(--text);
+      font-family:Inter,Arial,Helvetica,sans-serif;
+      line-height:1.5;
+    }
+    a{color:inherit;text-decoration:none}
+    .nav{
+      position:fixed;top:0;left:0;right:0;z-index:20;
+      display:flex;justify-content:space-between;align-items:center;
+      padding:20px 5vw;
+      background:linear-gradient(to bottom,rgba(8,9,11,.92),transparent);
+      backdrop-filter:blur(8px);
+    }
+    .logo{font-weight:800;letter-spacing:.08em;font-size:15px}
+    .navlinks{display:flex;gap:28px;font-size:14px;color:#ddd}
+    .navlinks a:hover{color:#fff}
+    .hero{
+      min-height:100svh;
+      display:grid;place-items:end start;
+      padding:130px 5vw 8vh;
+      position:relative;overflow:hidden;
+      background:#08090b;
+    }
+
+    .hero-video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.58}
+    .hero-fallback{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.0}
+    .hero:after{
+      content:"";
+      position:absolute;inset:0;
+      background:linear-gradient(to top,rgba(8,9,11,1) 0%,rgba(8,9,11,.25) 55%,rgba(8,9,11,.2));
+      pointer-events:none;
+    }
+    .hero-content{position:relative;z-index:2;max-width:900px}
+    .eyebrow{
+      text-transform:uppercase;letter-spacing:.18em;
+      font-size:12px;color:#c7c8ca;margin-bottom:18px;
+    }
+    h1{
+      font-size:clamp(58px,11vw,150px);
+      line-height:.84;margin:0 0 28px;
+      letter-spacing:-.07em;
+    }
+    .hero p{max-width:650px;color:#d1d2d4;font-size:clamp(18px,2vw,25px);margin:0 0 35px}
+    .buttons{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;justify-content:center;
+      padding:14px 21px;border:1px solid var(--line);border-radius:999px;
+      font-weight:700;font-size:14px;transition:.2s;
+    }
+    .btn.primary{background:#f4f4f0;color:#08090b}
+    .btn:hover{transform:translateY(-2px)}
+    section{padding:100px 5vw}
+    .section-head{
+      display:flex;justify-content:space-between;gap:30px;align-items:end;
+      margin-bottom:40px;border-bottom:1px solid var(--line);padding-bottom:18px
+    }
+    .section-head h2{font-size:clamp(34px,5vw,68px);line-height:1;margin:0;letter-spacing:-.05em}
+    .section-head span{color:var(--muted);font-size:13px}
+    .services{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--line);border:1px solid var(--line)}
+    .service{background:var(--bg);padding:32px;min-height:230px}
+    .number{font-size:12px;color:var(--muted)}
+    .service h3{font-size:24px;margin:65px 0 8px}
+    .service p{color:var(--muted);margin:0}
+    .portfolio{display:grid;grid-template-columns:repeat(12,1fr);gap:14px}
+    .work{
+      min-height:310px;border-radius:4px;overflow:hidden;position:relative;
+      display:flex;align-items:end;padding:24px;
+      background:linear-gradient(135deg,#23272d,#101216 65%,#31343a);
+      border:1px solid rgba(255,255,255,.08);
+    }
+    .work:nth-child(1){grid-column:span 7;min-height:440px}
+    .work:nth-child(2){grid-column:span 5}
+    .work:nth-child(3){grid-column:span 5}
+    .work:nth-child(4){grid-column:span 7}
+    .real-photo{background:url("media/kust.jpg") center/cover no-repeat}
+    .real-video{background:#111}
+    .real-video video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:.72}
+    .real-video:after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 35%,rgba(0,0,0,.8))}
+    .real-video .caption{z-index:3}
+    .work:before{
+      content:"DRONE FOOTAGE";
+      position:absolute;top:20px;right:20px;
+      font-size:10px;letter-spacing:.15em;color:rgba(255,255,255,.45)
+    }
+    .work .caption{position:relative;z-index:2}
+    .work h3{margin:0;font-size:26px}
+    .work p{margin:3px 0 0;color:#bbb}
+    .note{
+      margin-top:20px;color:var(--muted);font-size:13px
+    }
+    .about{
+      display:grid;grid-template-columns:1fr 1fr;gap:70px;align-items:start
+    }
+    .about h2{font-size:clamp(40px,6vw,80px);line-height:.95;letter-spacing:-.06em;margin:0}
+    .about p{color:#c5c6c8;font-size:18px}
+    .facts{border-top:1px solid var(--line)}
+    .fact{display:flex;justify-content:space-between;padding:18px 0;border-bottom:1px solid var(--line)}
+    .fact span:first-child{color:var(--muted)}
+    .contact{
+      padding:120px 5vw;
+      text-align:center;
+      background:#f4f4f0;color:#08090b;
+    }
+    .contact h2{font-size:clamp(48px,9vw,120px);line-height:.85;letter-spacing:-.07em;margin:0 0 28px}
+    .contact p{font-size:18px;margin-bottom:30px}
+    .contact .btn{border-color:#08090b}
+    footer{
+      padding:28px 5vw;display:flex;justify-content:space-between;
+      color:#777;font-size:12px;border-top:1px solid var(--line)
+    }
+    @media(max-width:800px){
+      .navlinks{display:none}
+      section{padding:75px 5vw}
+      .services,.about{grid-template-columns:1fr}
+      .portfolio{grid-template-columns:1fr}
+      .work,.work:nth-child(n){grid-column:span 1;min-height:300px}
+      .work:nth-child(1){min-height:380px}
+      .section-head{display:block}
+      .section-head span{display:block;margin-top:12px}
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a class="logo" href="#">ARNE DRONES</a>
+    <div class="navlinks">
+      <a href="#diensten">Diensten</a>
+      <a href="#portfolio">Portfolio</a>
+      <a href="#over">Over mij</a>
+      <a href="#contact">Contact</a>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <video class="hero-video" autoplay muted loop playsinline poster="media/kust.jpg">
+      <source src="media/restaurant-fpv.mp4" type="video/mp4">
+    </video>
+    <div class="hero-content">
+      <div class="eyebrow">Drone piloot · België · DJI · Cinematic & high-speed</div>
+      <h1>SEE IT<br>FROM ABOVE.</h1>
+      <p>Cinematic aerial video & fotografie voor bedrijven, sportwagens, restaurants, events en creatieve projecten.</p>
+      <div class="buttons">
+        <a class="btn primary" href="#portfolio">Bekijk portfolio</a>
+        <a class="btn" href="#contact">Boek een shoot</a>
+      </div>
+    </div>
+  </header>
+
+  <section id="diensten">
+    <div class="section-head">
+      <h2>Wat ik doe</h2><span>01 — DIENSTEN</span>
+    </div>
+    <div class="services">
+      <article class="service">
+        <div class="number">01</div>
+        <h3>Cinematic video</h3>
+        <p>Professionele luchtbeelden met focus op sfeer, beweging en storytelling.</p>
+      </article>
+      <article class="service">
+        <div class="number">02</div>
+        <h3>Aerial fotografie</h3>
+        <p>Sterke foto's vanuit de lucht voor websites, socials, campagnes en locaties.</p>
+      </article>
+      <article class="service">
+        <div class="number">03</div>
+        <h3>Dynamic follow</h3>
+        <p>Snelle, dynamische dronebeelden van sportwagens en andere bewegende onderwerpen.</p>
+      </article>
+      <article class="service">
+        <div class="number">04</div>
+        <h3>Business content</h3>
+        <p>Dronecontent die een bedrijf, zaak, project of event visueel laat opvallen.</p>
+      </article>
+    </div>
+  </section>
+
+  <section id="portfolio">
+    <div class="section-head">
+      <h2>Selected work</h2><span>02 — PORTFOLIO</span>
+    </div>
+    <div class="portfolio">
+      <article class="work real-photo"><div class="caption"><h3>Locations</h3><p>Cinematic aerial perspectives</p></div></article>
+      <article class="work"><div class="caption"><h3>Hospitality</h3><p>Horeca & sfeer</p></div></article>
+      <article class="work"><div class="caption"><h3>Events</h3><p>Moments from above</p></div></article>
+      <article class="work real-video"><video autoplay muted loop playsinline src="media/restaurant-fpv.mp4"></video><div class="caption"><h3>Indoor FPV</h3><p>From street to kitchen</p></div></article>
+    </div>
+    <p class="note">V1 gebruikt tijdelijke visuals. In de volgende stap kunnen we jouw echte dronefoto's en video's hierin zetten.</p>
+  </section>
+
+  <section id="over">
+    <div class="section-head">
+      <h2>Behind the drone</h2><span>03 — OVER MIJ</span>
+    </div>
+    <div class="about">
+      <div>
+        <h2>Een ander<br>perspectief.</h2>
+      </div>
+      <div>
+        <p>Ik ben Arne, dronepiloot uit België. Ik vlieg al sinds mijn 6e en wist eigenlijk altijd al dat ik iets met drones wilde doen.</p>
+        <p>Vandaag gebruik ik die passie om bedrijven, merken en projecten te helpen zichzelf van hun beste kant te laten zien. Van cinematic aerials tot dynamische tracking shots van sportwagens: ik zoek het perspectief dat beelden bijzonder maakt.</p>
+        <p>Wat is er mooier dan mensen helpen hun bedrijf in een goed daglicht te zetten — en het tegelijk vanuit een ander oog te laten zien?</p>
+        <div class="facts">
+          <div class="fact"><span>Regio</span><strong>België 🇧🇪</strong></div>
+          <div class="fact"><span>Focus</span><strong>Cinematic aerial & action</strong></div>
+          <div class="fact"><span>Specialty</span><strong>Sportwagen tracking</strong></div>
+          <div class="fact"><span>Instagram</span><strong>@arnedrones</strong></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <div class="eyebrow">04 — CONTACT</div>
+    <h2>LET'S FLY.</h2>
+    <p>Heb je een shoot, project of collab in gedachten?</p>
+    <div class="buttons">
+      <!-- Vervang dit e-mailadres door jouw echte adres -->
+      <a class="btn primary" href="mailto:VUL-HIER-JE-EMAIL-IN">Vraag een offerte</a>
+      <a class="btn" href="https://instagram.com/arnedrones" target="_blank" rel="noopener">Instagram @arnedrones</a>
+    </div>
+  </section>
+
+  <footer>
+    <span>© 2026 Arne Drones</span>
+    <span>Cinematic aerial content · Belgium</span>
+  </footer>
+</body>
+</html>
